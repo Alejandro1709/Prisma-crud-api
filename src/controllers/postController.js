@@ -16,6 +16,9 @@ export const getPost = async (req, res) => {
     where: {
       id: Number(req.params.id),
     },
+    include: {
+      author: true,
+    },
   });
 
   if (!post) {
