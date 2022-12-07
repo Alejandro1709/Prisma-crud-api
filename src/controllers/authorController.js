@@ -40,3 +40,29 @@ export const createAuthor = async (req, res) => {
 
   res.status(201).json(author);
 };
+
+export const updateAuthor = async (req, res) => {
+  const { name, email } = req.body;
+
+  const author = await prisma.author.update({
+    where: {
+      id: Number(req.params.id),
+    },
+    data: {
+      name,
+      email,
+    },
+  });
+
+  res.status(200).json(author);
+};
+
+export const deleteAuthor = async (req, res) => {
+  const author = await prisma.author.delete({
+    where: {
+      id: Number(req.params.id),
+    },
+  });
+
+  res.status(200).json(author);
+};
