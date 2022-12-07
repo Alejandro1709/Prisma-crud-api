@@ -41,6 +41,7 @@ app.post('/api/v1/posts', async (req, res) => {
     data: {
       title,
       content,
+      slug: title.replaceAll(' ', '-').toLowerCase(),
     },
   });
 
@@ -55,6 +56,7 @@ app.put('/api/v1/posts/:id', async (req, res) => {
     data: {
       title,
       content,
+      slug: title.replaceAll(' ', '-').toLowerCase(),
     },
   });
 
