@@ -3,7 +3,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export const getAllPosts = async (_req, res) => {
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({
+    include: {
+      author: true,
+    },
+  });
   res.status(200).json(posts);
 };
 
@@ -22,13 +26,14 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, authorId } = req.body;
 
   const post = await prisma.post.create({
     data: {
       title,
       content,
       slug: title.replaceAll(' ', '-').toLowerCase(),
+      authorId: Number(authorId),
     },
   });
 

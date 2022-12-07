@@ -15,4 +15,13 @@ model Post {
   title String @db.VarChar(255)
   slug String? @db.VarChar(255) @default("")
   content String @db.LongText
+  authorId Int @default(1)
+  author Author? @relation(fields: [authorId], references: [id])
+}
+
+model Author {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(255)
+  email String @unique @db.VarChar(255)
+  posts Post[]
 }
